@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <title>AJ Elegant | Ultra-Premium Fashion Hub</title>
+  <meta name="description" content="AJ Elegant - বাংলাদেশের ১ নম্বর প্রিমিয়াম অনলাইন ফ্যাশন হাউস।">
+  
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '951370043895258');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=951370043895258&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,400..900;1,400..900&family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@100;300;400;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #000000;
+      --obsidian: #080808;
+      --text-main: #ffffff;
+      --text-dim: #888888;
+      --accent: #ffffff;
+      --gold: #d4af37;
+      --border: rgba(255, 255, 255, 0.08);
+      --glass: rgba(0, 0, 0, 0.75);
+    }
+
+    * { 
+      box-sizing: border-box; 
+      outline: none; 
+      margin: 0; 
+      padding: 0;
+    }
+    
+    @media (pointer: fine) {
+      * { cursor: none !important; }
+      #cursor { 
+        position: fixed; 
+        width: 40px; 
+        height: 40px; 
+        border: 0.5px solid var(--accent); 
+        border-radius: 50%; 
+        pointer-events: none; 
+        z-index: 9999; 
+        mix-blend-mode: difference; 
+        transition: transform 0.1s ease-out; 
+      }
+      #dot { 
+        position: fixed; 
+        width: 4px; 
+        height: 4px; 
+        background: #fff; 
+        border-radius: 50%; 
+        pointer-events: none; 
+        z-index: 10000; 
+        transform: translate(-50%, -50%); 
+      }
+    }
+
+    body { 
+      font-family: 'Inter', 'Hind Siliguri', sans-serif; 
+      background: var(--bg); 
+      color: var(--text-main); 
+      overflow-x: hidden; 
+      letter-spacing: -0.02em;
+    }
+
+    #ambient-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      filter: blur(100px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .grain { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      pointer-events: none; 
+      z-index: 9998; 
+      opacity: 0.05; 
+      background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Resolution_White_Noise_Video_Texture.png"); 
+    }
+
+    .promo-bar { 
+      background: #ffffff; 
+      color: #000000; 
+      text-align: center; 
+      padding: 10px; 
+      font-size: 0.55rem; 
+      font-weight: 900; 
+      letter-spacing: 4px; 
+      text-transform: uppercase; 
+      position: sticky; 
+      top: 0; 
+      z-index: 1100; 
+    }
+
+    header { 
+      padding: 1.2rem 6%; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      border-bottom: 1px solid var(--border); 
+      position: sticky; 
+      top: 36px; 
+      background: var(--glass); 
+      backdrop-filter: blur(25px); 
+      z-index: 1050; 
+    }
+    
+    .logo { 
+      font-family: 'Bodoni Moda'; 
+      font-weight: 300; 
+      letter-spacing: 10px; 
+      font-size: 1.1rem; 
+      text-transform: uppercase; 
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .hero { 
+      height: 90vh; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      text-align: center; 
+      position: relative; 
+      overflow: hidden; 
+      padding: 0 6%;
+    }
+    
+    .hero-bg-text { 
+      position: absolute; 
+      font-family: 'Bodoni Moda'; 
+      font-size: 25vw; 
+      color: rgba(255,255,255,0.02); 
+      pointer-events: none; 
+      white-space: nowrap; 
+      font-weight: 900; 
+      z-index: 0; 
+    }
+    
+    .hero h2 { 
+      font-family: 'Bodoni Moda'; 
+      font-size: clamp(3rem, 10vw, 8rem); 
+      margin: 0; 
+      line-height: 0.9; 
+      text-transform: uppercase; 
+      font-weight: 300; 
+      z-index: 1; 
+    }
+    
+    .hero h2 span { 
+      display: block; 
+      font-style: italic; 
+      font-weight: 100; 
+      color: var(--text-dim); 
+    }
+    
+    .hero p { 
+      color: var(--text-dim); 
+      letter-spacing: 8px; 
+      text-transform: uppercase; 
+      margin-top: 30px; 
+      font-size: 0.6rem; 
+      z-index: 1; 
+      opacity: 0; 
+    }
+
+    .filter-container { 
+      padding: 2.5rem 6%; 
+      text-align: center; 
+      position: sticky; 
+      top: 106px; 
+      background: rgba(0,0,0,0.85); 
+      backdrop-filter: blur(20px); 
+      z-index: 1000; 
+      border-bottom: 1px solid var(--border); 
+    }
+    
+    .filter-bar { 
+      display: inline-flex; 
+      gap: 20px; 
+      overflow-x: auto; 
+      max-width: 100%; 
+      padding-bottom: 5px; 
+      scrollbar-width: none; 
+    }
+    
+    .filter-bar::-webkit-scrollbar { display: none; }
+    
+    .filter-btn { 
+      background: transparent; 
+      border: none; 
+      color: var(--text-dim); 
+      cursor: pointer; 
+      font-size: 0.6rem; 
+      font-weight: 600; 
+      text-transform: uppercase; 
+      letter-spacing: 2px; 
+      transition: 0.4s; 
+      white-space: nowrap;
+    }
+    
+    .filter-btn.active { color: #ffffff; }
+
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+      gap: 1px; 
+      background: var(--border); 
+    }
+    
+    .card { 
+      background: var(--bg); 
+      padding: 40px 25px; 
+      transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+      position: relative; 
+      opacity: 0; 
+      transform: translateY(30px); 
+    }
+    
+    .card:hover { background: var(--obsidian); }
+    
+    .img-box { 
+      width: 100%; 
+      aspect-ratio: 4/5; 
+      overflow: hidden; 
+      position: relative; 
+      background: #050505; 
+      border-radius: 4px; 
+    }
+    
+    .img-box img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
+      filter: contrast(105%) brightness(85%); 
+    }
+    
+    .card:hover img { 
+      transform: scale(1.08); 
+      filter: contrast(100%) brightness(100%); 
+    }
+    
+    .badge { 
+      position: absolute; 
+      top: 55px; 
+      left: 40px; 
+      background: rgba(255,255,255,0.1);
+      border: 0.5px solid rgba(255,255,255,0.2); 
+      color: #ffffff; 
+      padding: 4px 10px; 
+      font-size: 0.5rem; 
+      font-weight: 400; 
+      text-transform: uppercase; 
+      z-index: 5; 
+      letter-spacing: 1.5px; 
+      backdrop-filter: blur(10px); 
+      pointer-events: none;
+    }
+
+    .info { margin-top: 30px; text-align: center; }
+    .info h3 { font-family: 'Bodoni Moda'; font-size: 1.2rem; margin: 0 0 8px; font-weight: 300; letter-spacing: 1px; }
+    .price { font-size: 0.95rem; font-weight: 300; letter-spacing: 2px; color: var(--gold); margin-bottom: 20px; }
+
+    .btn { 
+      display: block; 
+      width: 100%; 
+      max-width: 240px; 
+      margin: 0 auto; 
+      padding: 14px; 
+      text-align: center; 
+      text-decoration: none; 
+      font-size: 0.6rem; 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      letter-spacing: 3px; 
+      transition: 0.4s; 
+      border: 0.5px solid var(--border); 
+      color: #ffffff; 
+      position: relative; 
+      overflow: hidden; 
+    }
+    
+    .btn::after { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: -100%; 
+      width: 100%; 
+      height: 100%; 
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); 
+      transition: 0.6s; 
+    }
+    
+    .btn:hover::after { left: 100%; }
+    
+    .btn-fill { background: #ffffff; color: #000000; border: 1px solid #ffffff; margin-bottom: 10px; }
+    .btn-fill:hover { background: transparent; color: #ffffff; }
+    .btn-fb { background: #0084FF; border-color: #0084FF; }
+
+    #ai-btn { 
+      position: fixed; 
+      bottom: 30px; 
+      left: 30px; 
+      width: 50px; 
+      height: 50px; 
+      border-radius: 50%; 
+      border: 0.5px solid var(--border); 
+      background: var(--glass); 
+      color: #ffffff; 
+      z-index: 1200; 
+      font-size: 1rem; 
+      backdrop-filter: blur(20px); 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      transition: 0.3s; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+      cursor: pointer;
+    }
+    
+    #ai-btn:hover { border-color: #ffffff; transform: translateY(-5px); }
+    
+    #chat-box { 
+      position: fixed; 
+      bottom: 95px; 
+      left: 30px; 
+      width: 320px; 
+      height: 450px; 
+      background: #000000; 
+      border: 0.5px solid var(--border); 
+      border-radius: 12px; 
+      z-index: 1200; 
+      display: none; 
+      flex-direction: column; 
+      overflow: hidden; 
+      box-shadow: 0 30px 60px rgba(0,0,0,0.9); 
+    }
+    
+    .chat-head { 
+      padding: 15px 20px; 
+      background: #0a0a0a; 
+      border-bottom: 0.5px solid var(--border); 
+      font-size: 0.6rem; 
+      letter-spacing: 2px; 
+      font-weight: 800; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    
+    .chat-body { 
+      flex: 1; 
+      padding: 15px; 
+      overflow-y: auto; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 12px; 
+      font-size: 0.75rem; 
+      color: #cccccc; 
+      line-height: 1.5; 
+    }
+    
+    .msg.user { 
+      background: #111111; 
+      padding: 10px 12px; 
+      border-radius: 10px 10px 0 10px; 
+      align-self: flex-end; 
+      color: #ffffff; 
+      border: 0.5px solid var(--border); 
+    }
+    .msg.bot { 
+      background: #1a1a1a; 
+      padding: 10px 12px; 
+      border-radius: 10px 10px 10px 0; 
+      align-self: flex-start; 
+    }
+
+    #sales-popup { 
+      position: fixed; 
+      bottom: 30px; 
+      right: 30px; 
+      background: rgba(0,0,0,0.85); 
+      backdrop-filter: blur(15px); 
+      border: 0.5px solid var(--border); 
+      padding: 10px 18px; 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      z-index: 1000; 
+      transform: translateY(200%); 
+      transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+      border-radius: 8px; 
+    }
+    
+    .popup-img { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; }
+    .popup-text { font-size: 0.5rem; letter-spacing: 1px; color: #888888; text-transform: uppercase; }
+    .popup-text strong { display: block; color: #ffffff; font-size: 0.6rem; margin-bottom: 2px; }
+
+    footer { padding: 6rem 6% 3rem; text-align: center; border-top: 1px solid var(--border); position: relative; z-index: 10; }
+    .footer-logo { font-family: 'Bodoni Moda'; font-size: 2rem; letter-spacing: 12px; margin-bottom: 2rem; font-weight: 100; opacity: 0.3; }
+
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+      #chat-box { width: calc(100% - 60px); left: 30px; bottom: 95px; }
+      .hero h2 { font-size: 3.5rem; }
+      header { top: 34px; padding: 1rem 6%; }
+      .filter-container { top: 94px; padding: 1.5rem 6%; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="ambient-canvas"></canvas>
+  <div class="grain"></div>
+  <div id="cursor"></div>
+  <div id="dot"></div>
+
+  <div class="promo-bar">Private Atelier • Global Delivery • Established 2026</div>
+
+  <div id="sales-popup">
+    <img src="ajfashion (1).jpg" id="popupImg" class="popup-img" alt="Sale Image">
+    <div class="popup-text">
+      <strong id="popupUser">Gulshan Residence</strong>
+      Acquired <span id="popupItem">Signature Panjabi</span>
+    </div>
+  </div>
+
+  <button id="ai-btn" onclick="toggleChat()">✦</button>
+  <div id="chat-box">
+    <div class="chat-head">
+      <span>AJ CONCIERGE</span>
+      <span style="cursor:pointer" onclick="toggleChat()">✕</span>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg bot">Welcome to the inner circle of AJ Elegant. How may I facilitate your acquisition today?</div>
+    </div>
+    <div style="padding:15px; border-top: 0.5px solid var(--border); display:flex; gap:10px; background:#050505;">
+      <input type="text" id="chatInput" style="flex:1; background:transparent; border:none; color:#ffffff; font-size:0.75rem;" placeholder="Inquire...">
+      <button onclick="handleMsg()" style="background:transparent; color:#ffffff; border:none; font-size:1.2rem; cursor:pointer;">➔</button>
+    </div>
+  </div>
+
+  <header>
+    <a href="#" class="logo">AJ ELEGANT</a>
+    <nav style="display:flex; gap:25px;">
+      <a href="https://wa.me/c/8801722123003" target="_blank" style="color:var(--text-dim); text-decoration:none; font-size:0.55rem; letter-spacing:2px; font-weight:600;">CATALOG</a>
+      <a href="https://www.facebook.com/AJELEGANTFASHION/" target="_blank" style="color:var(--text-dim); text-decoration:none; font-size:0.55rem; letter-spacing:2px; font-weight:600;">SOCIAL</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg-text">EST. 2026</div>
+      <h2 id="hero-h2">Quiet <span>Luxury</span></h2>
+      <p id="hero-p">The definition of Bengali excellence.</p>
+    </section>
+
+    <section id="collection" class="filter-container">
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterData('all', this)">Collection</button>
+        <button class="filter-btn" onclick="filterData('panjabi', this)">Panjabi</button>
+        <button class="filter-btn" onclick="filterData('bangles', this)">Jewelry</button>
+        <button class="filter-btn" onclick="filterData('apparel', this)">Heritage</button>
+      </div>
+    </section>
+
+    <div class="grid" id="mainGrid"></div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">AJ ELEGANT</div>
+    <div style="display:flex; justify-content:center; gap:20px; margin-bottom:60px; flex-wrap: wrap;">
+      <a href="https://wa.me/c/8801722123003" target="_blank" class="btn" style="max-width:180px;">WhatsApp</a>
+      <a href="https://www.facebook.com/AJELEGANTFASHION/" target="_blank" class="btn btn-fb" style="max-width:180px;">Facebook</a>
+    </div>
+    <div style="font-size:0.5rem; color:#444444; letter-spacing:3px; text-transform:uppercase;">© 2026 AJ Fashion House • Private Boutique Access Only</div>
+  </footer>
+
+  <script>
+    const waLink = "https://wa.me/c/8801722123003";
+    const fbLink = "https://www.facebook.com/AJELEGANTFASHION/";
+    const apiKey = ""; 
+
+    const products = [
+      { id: 1, name: "Gold Plated Bangles", price: 650, cat: "bangles", tag: "Handcrafted", img: "ajfashion (1).jpg" },
+      { id: 2, name: "Premium Noir Panjabi", price: 2850, cat: "panjabi", tag: "Numbered Edition", img: "ajfashion (6).jpg" },
+      { id: 3, name: "Heritage Silk Saree", price: 5500, cat: "apparel", tag: "Limited Run", img: "ajfashion (7).jpg" },
+      { id: 4, name: "Bangle Set Series 02", price: 850, cat: "bangles", tag: "Exclusive", img: "ajfashion (2).jpg" },
+      { id: 5, name: "Stealth Utility Cargo", price: 1450, cat: "apparel", tag: "Series 01", img: "ajfashion (5).jpg" },
+      { id: 6, name: "Silk Collection S08", price: 4200, cat: "apparel", tag: "Bespoke", img: "ajfashion (8).jpg" }
+    ];
+
+    function initAmbientBackground() {
+      const canvas = document.getElementById('ambient-canvas');
+      const ctx = canvas.getContext('2d');
+      let w, h, particles = [];
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.size = Math.random() * 250 + 80;
+          this.vx = (Math.random() - 0.5) * 0.4;
+          this.vy = (Math.random() - 0.5) * 0.4;
+          this.color = Math.random() > 0.5 ? '#ffffff' : '#222222';
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < -this.size || this.x > w + this.size) this.vx *= -1;
+          if (this.y < -this.size || this.y > h + this.size) this.vy *= -1;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < 5; i++) particles.push(new Particle());
+
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    function renderGrid(filter = 'all') {
+      const grid = document.getElementById('mainGrid');
+      grid.innerHTML = '';
+      const filtered = filter === 'all' ? products : products.filter(p => p.cat === filter);
+      
+      filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="badge">${p.tag}</div>
+          <div class="img-box">
+            <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/800x1000?text=AJ+Luxury'">
+          </div>
+          <div class="info">
+            <h3>${p.name}</h3>
+            <div class="price">৳${p.price.toLocaleString()}</div>
+            <a href="${waLink}" target="_blank" class="btn btn-fill" onclick="trackOrder('${p.name}', ${p.price})">Order WhatsApp</a>
+            <a href="${fbLink}" target="_blank" class="btn btn-fb">Facebook Inquire</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      gsap.to(".card", { opacity: 1, y: 0, stagger: 0.08, duration: 0.8, ease: "power2.out" });
+    }
+
+    function filterData(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      gsap.to(".card", { opacity: 0, y: 15, duration: 0.3, stagger: 0.02, onComplete: () => renderGrid(cat) });
+    }
+
+    function trackOrder(name, price) {
+      if(typeof fbq === 'function') {
+        fbq('track', 'AddToCart', { content_name: name, value: price, currency: 'BDT' });
+      }
+    }
+
+    if (window.matchMedia("(pointer: fine)").matches) {
+      const cursor = document.getElementById('cursor');
+      const dot = document.getElementById('dot');
+      document.addEventListener('mousemove', e => {
+        gsap.to(cursor, { x: e.clientX - 20, y: e.clientY - 20, duration: 0.5, ease: "power3.out" });
+        gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.1 });
+      });
+    }
+
+    function toggleChat() {
+      const box = document.getElementById('chat-box');
+      const isVisible = box.style.display === 'flex';
+      box.style.display = isVisible ? 'none' : 'flex';
+      if (!isVisible) {
+          gsap.from(box, { y: 20, opacity: 0, duration: 0.4, ease: "power2.out" });
+      }
+    }
+
+    async function handleMsg() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if(!text) return;
+
+      appendMsg(text, 'user');
+      input.value = '';
+
+      const sys = `Role: AJ Luxury Concierge. Style: Ultra-Elite, minimalist. 
+      Links: WhatsApp (${waLink}), Facebook (${fbLink}). 
+      Max 2 sentences. No emojis. Tone: Quiet Luxury.`;
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          body: JSON.stringify({ contents: [{ parts: [{ text: text }] }], systemInstruction: { parts: [{ text: sys }] } })
+        });
+        const data = await res.json();
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Please contact us on WhatsApp for assistance.";
+        appendMsg(reply, 'bot');
+      } catch(e) {
+        appendMsg("Please connect via WhatsApp for immediate assistance.", 'bot');
+      }
+    }
+
+    function appendMsg(text, type) {
+      const body = document.getElementById('chatBody');
+      const div = document.createElement('div');
+      div.className = `msg ${type}`;
+      div.innerText = text;
+      body.appendChild(div);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    document.getElementById('chatInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleMsg();
+    });
+
+    window.onload = () => {
+      initAmbientBackground();
+      
+      const lenis = new Lenis({ lerp: 0.08, duration: 1.2, smoothWheel: true });
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+
+      gsap.from("#hero-h2", { y: 60, opacity: 0, duration: 1.4, ease: "expo.out" });
+      gsap.to("#hero-p", { opacity: 1, duration: 1.5, delay: 0.6 });
+      
+      ScrollTrigger.create({
+        trigger: ".hero",
+        start: "top top",
+        end: "bottom top",
+        onUpdate: (self) => {
+          gsap.set(".hero-bg-text", { x: -150 * self.progress });
+        }
+      });
+      
+      renderGrid();
+
+      setInterval(() => {
+        const p = products[Math.floor(Math.random() * products.length)];
+        const locations = ["Gulshan Estate", "Banani Atelier", "Sylhet Residence", "Baridhara Court"];
+        document.getElementById('popupUser').innerText = locations[Math.floor(Math.random()*locations.length)];
+        document.getElementById('popupItem').innerText = p.name;
+        document.getElementById('popupImg').src = p.img;
+        const pop = document.getElementById('sales-popup');
+        pop.style.transform = "translateY(0)";
+        setTimeout(() => pop.style.transform = "translateY(200%)", 7000);
+      }, 30000);
+    };
+  </script>
+</body>
+</html>
